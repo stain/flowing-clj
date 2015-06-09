@@ -22,11 +22,11 @@
   (testing "defstep"
     (def hello)
     (defstep hello [a b c] (str "Hello, " a b c))
-    (is (= "hello" (:flowing.core/name hello))))
+    (is (= "hello" (step-name hello))))
 
-;  (testing "workflow"
-;    (let [wf (workflow
-;          (defstep hello [name] (str "Hello, " name))
-;          (link "Alice" (:name hello)))]
-;        (is (= "Hello, Alice") (deref (:hello wf))))))
+  (testing "workflow"
+    (let [wf (workflow
+          (defstep hello [name] (str "Hello, " name))
+          (link "Alice" (:name hello)))]
+        (is (= "Hello, Alice") (wait-for-output (:hello wf)))))
 )
