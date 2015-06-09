@@ -8,6 +8,7 @@ Build or test using [Leiningen](http://leiningen.org/):
 
 ```
 lein test
+lein install
 lein repl
 ```
 
