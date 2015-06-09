@@ -1,6 +1,6 @@
-# flow
+# flowing-clj
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library for building dataflows.
 
 ## Usage
 
@@ -8,7 +8,8 @@ FIXME
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015 Stian Soiland-Reyes
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the
+[Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+See the file `LICENSE` for details.
