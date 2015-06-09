@@ -26,9 +26,11 @@
     (is (= "hello" (step-name hello))))
 
   (testing "workflow"
+    (def hello)
     (let [wf (workflow
             (defstep hello [name] (str "Hello, " name))
             (link "Alice" (:name hello)))]
+         (println wf)
          (is (= "hello" (step-name (:hello wf))))
         (is (= "Hello, Alice") (wait-for-output hello))
         (is (= {:hello "Hello, Alice" } (wait-for-workflow wf)))

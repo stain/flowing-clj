@@ -1,13 +1,14 @@
 (ns flowing.core)
 
+(defn- named-map [vals]
+  (dissoc (zipmap (map keyword (map ::name vals)) vals) nil))
+
 (defn workflow
   "Define a workflow using a series of
    (defstep) and (link) calls"
   [& steps]
-  (assoc
-    (dissoc (zipmap (map keyword (map :name steps)) steps) nil)
+  (assoc (named-map steps)
     :links (filter ::from steps)))
-
 
 (defn ref? [val] (instance? clojure.lang.IDeref val))
 
@@ -55,5 +56,12 @@
 (defn wait-for-output [step]
   (deref (output-ref step)))
 
+(defn workflow-steps [wf]
+  (filter ::output (vals wf)))
+
+(defn- step-names [steps]
+  (map ::name steps))
+
 (defn wait-for-workflow [workflow]
-  (zipmap (keys workflow) (map wait-for-output (vals workflow))))
+  (let [steps (workflow-steps workflow)]
+    (zipmap (step-names steps) (map wait-for-output steps))))
