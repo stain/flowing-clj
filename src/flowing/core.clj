@@ -60,7 +60,7 @@
   (filter ::output (vals wf)))
 
 (defn- step-names [steps]
-  (map ::name steps))
+  (map keyword (map ::name steps)))
 
 (defn wait-for-workflow [workflow]
   (let [steps (workflow-steps workflow)]
