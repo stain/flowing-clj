@@ -11,13 +11,12 @@
       (is (ref? (:b step)))
       (is (ref? (:c step)))
       (is (future? (output-ref step)))
-      (deliver (:a step) "Alice")
-      (is (realized? (:a step)))
+      (link "Alice" (:a step))
       (is (not (realized? (output-ref step))))
-      (deliver (:b step) (future "Bob"))
+      (link "Bob" (:b step))
       (link "Charlie" (:c step))
-      (is (realized? (output-ref step)))
-      (is (= "Hello, AliceBobCharlie" (wait-for-output step)))))
+      (is (= "Hello, AliceBobCharlie" (wait-for-output step)))
+      (is (realized? (output-ref step)))))
 
   (testing "defstep"
     (def hello)
@@ -36,6 +35,7 @@
     ))
 
   (testing "example workflow"
+    (println "Example workflow")
     (def example-wf
       (workflow
         ; Define a series of steps, which can take 0 or more
