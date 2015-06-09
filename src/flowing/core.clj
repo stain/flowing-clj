@@ -6,12 +6,22 @@
   [& steps]
 )
 
+(defmacro step
+  [step-name args & body]
+    `(let [keys# (map keyword '~args)
+           input# (zipmap keys# (repeatedly promise))
+           output# (future
+             (apply (fn ~args ~@body) (map deref (map input# keys#))))]
+          (merge input#
+            { ::name ~step-name
+              ::inputs keys#
+              ::output output# })))
+
 (defmacro defstep
-  [name args & body]
-    (let [input (zipmap args (repeatedly promise))]
-      `(def ~name (future
-        (let
-          ~(vec (interleave args (map #(list 'deref '(input %)) args)))
-          ~@body
-        )))))
-        ;'(name ~input#)))
+  [step-name args & body]
+  `(def ~step-name (step (name '~step-name) ~args ~body))
+)
+
+(defmacro defworkflow
+  [wf-name & steps]
+  `(def ~wf-name (workflow ~@steps)))
