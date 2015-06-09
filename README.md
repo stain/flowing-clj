@@ -100,7 +100,7 @@ a map with all the results values.
 
 ```clojure
 (println (wait-for-workflow example-wf))
-{ :get-sequence GATTAGCAT, 
+{ :get-sequence GATTAGCAT, 
   :alignment >cat GATTAGCAT, 
   :pathways {:cat :tree, :dog :cat, :fireman :tree}, 
   :similar [tiger lion] }
