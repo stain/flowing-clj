@@ -98,6 +98,7 @@ a map with all the results values.
   :alignment >cat GATTAGCAT, 
   :pathways {:cat :tree, :dog :cat, :fireman :tree}, 
   :similar [tiger lion] }
+```
 
 ## How does it work?
 
