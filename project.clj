@@ -1,4 +1,4 @@
-(defproject flowing "0.1.0-SNAPSHOT"
+(defproject flowing "0.1.0"
   :description "Library for building data-driven workflows (dataflows)"
   :url "https://github.com/stain/flowing-clj"
   :license {:name "Apache License, version 2.0"
