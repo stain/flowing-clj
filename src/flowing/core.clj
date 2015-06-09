@@ -25,3 +25,12 @@
 (defmacro defworkflow
   [wf-name & steps]
   `(def ~wf-name (workflow ~@steps)))
+
+(defn step-name [step]
+  (::name step))
+(defn inputs [step]
+  (::inputs step))
+(defn output-ref [step]
+  (::output step))
+(defn wait-for-output [step]
+  (deref (output-ref step)))
