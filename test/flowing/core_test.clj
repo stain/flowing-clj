@@ -14,8 +14,9 @@
       (deliver (:a step) "Alice")
       (is (realized? (:a step)))
       (is (not (realized? (output-ref step))))
-      (deliver (:b step) "Bob")
-      (deliver (:c step) "Charlie")
+      (deliver (:b step) (future "Bob"))
+      (link "Charlie" (:c step))
+;      (deliver (:c step) "Charlie")
       (is (realized? (output-ref step)))
       (is (= "Hello, AliceBobCharlie" (wait-for-output step)))))
 
@@ -26,7 +27,10 @@
 
   (testing "workflow"
     (let [wf (workflow
-          (defstep hello [name] (str "Hello, " name))
-          (link "Alice" (:name hello)))]
-        (is (= "Hello, Alice") (wait-for-output (:hello wf)))))
+            (defstep hello [name] (str "Hello, " name))
+            (link "Alice" (:name hello)))]
+         (is (= "hello" (step-name (:hello wf))))
+        (is (= "Hello, Alice") (wait-for-output hello))
+        (is (= {:hello "Hello, Alice" } (wait-for-workflow wf)))
+    ))
 )
