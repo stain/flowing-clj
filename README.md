@@ -11,6 +11,12 @@ lein test
 lein repl
 ```
 
+## Related projects
+
+As flowing-clj is just a prototype, you might prefer trying:
+
+* Prismatic's [Plumbing and Graph](https://github.com/Prismatic/plumbing#graph-the-functional-swiss-army-knife)
+
 ## Usage
 
 ```clojure
