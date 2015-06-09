@@ -23,6 +23,7 @@ lein repl
 As flowing-clj is just a prototype, you might prefer trying:
 
 * Prismatic's [Plumbing and Graph](https://github.com/Prismatic/plumbing#graph-the-functional-swiss-army-knife)
+* Threading macros [->](http://clojuredocs.org/clojure.core/-%3E) and [->>](http://clojuredocs.org/clojure.core/-%3E%3E)
 
 ## Usage
 
