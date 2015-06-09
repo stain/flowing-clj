@@ -38,7 +38,7 @@
 
 (defmacro link [from to]
   `(do
-    (deliver ~to (delay ~from))
+    (deliver ~to (get ~from ::output (delay ~from)))
     {::from '~from ::to '~to }))
 
 
