@@ -3,7 +3,11 @@
 A [Clojure](http://clojure.org/) library for building data-driven workflows (dataflows).
 
 [![Clojars Project](http://clojars.org/flowing/latest-version.svg)](http://clojars.org/flowing)
-:wq
+
+[![Build Status](https://travis-ci.org/stain/flowing-clj.svg)](https://travis-ci.org/stain/flowing-clj)
+
+
+
 ## Building
 
 Build or test using [Leiningen](http://leiningen.org/):
