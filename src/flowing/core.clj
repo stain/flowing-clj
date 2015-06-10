@@ -12,18 +12,13 @@
 
 (defn ref? [val] (instance? clojure.lang.IDeref val))
 
-(defn deref-deep [ref]
-  (loop [ref ref]
-    (if (not (ref? ref)) ref
-      (recur (deref ref)))))
-
-
 (defmacro step
   [step-name args & body]
     `(let [keys# (map keyword '~args)
            input# (zipmap keys# (repeatedly promise))
            output# (future
-             (apply (fn ~args ~@body) (map deref-deep (map input# keys#))))]
+             (apply (fn ~args ~@body) 
+                    (map (comp deref deref input#) keys#)))]
           (merge input#
             { ::name ~step-name
               ::inputs keys#
