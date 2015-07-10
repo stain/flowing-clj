@@ -17,7 +17,7 @@
     `(let [keys# (map keyword '~args)
            input# (zipmap keys# (repeatedly promise))
            output# (future
-             (apply (fn ~args ~@body) 
+             (apply (fn ~args ~@body)
                     (map (comp deref deref input#) keys#)))]
           (merge input#
             { ::name ~step-name
