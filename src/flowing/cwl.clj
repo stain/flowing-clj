@@ -13,6 +13,7 @@
 
 (defn resolve-imports [base wf]
     (if (:import wf)
+      ;'(import-wf base ~(:import wf))
       (import-wf base (:import wf))
       wf))
 
