@@ -10,4 +10,7 @@
         wf (parse-cwl res)]
     (println wf)
     (is (= "Workflow" (:class wf)))
-    ))
+    ; Check the :import worked
+    (is (= "CommandLineTool" (get-in (first (:steps wf)) [:run :class])))
+    
+  ))

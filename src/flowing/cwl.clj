@@ -24,7 +24,6 @@
       (walk/postwalk (partial resolve-imports url)
         (yaml/parse-string (slurp src)))
       { :src url })))
-
   ;; TODO: Something about identifiers?
 
 
