@@ -10,18 +10,28 @@
     (throw (RuntimeException. (str "Local ids not yet supported: " id)))
     (parse-cwl (java.net.URL. base id))))
 
+(defn resolve-ids [base wf-part]
+  (if (:id wf-part)
+    ; replace with absolute id
+    (assoc wf-part :id (str (java.net.URL. base (:id wf-part))))
+  wf-part))
 
-(defn resolve-imports [base wf]
-    (if (:import wf)
-      ;'(import-wf base ~(:import wf))
-      (import-wf base (:import wf))
-      wf))
+(defn resolve-imports [base wf-part]
+    (if (:import wf-part)
+      ;'(import-wf base ~(:import wf-part))
+      (import-wf base (:import wf-part))
+      wf-part))
 
+(defn resolve-wf [base wf-part]
+  (->> wf-part
+      (resolve-imports base)
+      (resolve-ids base)
+    ))
 
 (defn parse-cwl [src]
   (let [url (io/as-url src)]
     (with-meta
-      (walk/postwalk (partial resolve-imports url)
+      (walk/postwalk (partial resolve-wf url)
         (yaml/parse-string (slurp src)))
       { :src url })))
   ;; TODO: Something about identifiers?
