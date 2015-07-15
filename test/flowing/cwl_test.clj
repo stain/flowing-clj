@@ -19,4 +19,7 @@
     (is (.endsWith (:id (first (:outputs wf))) "revsort.cwl#output"))
     ; and different filename in imported blocks
     (is (.endsWith (:id (first (get-in (first (:steps wf)) [:run :inputs]))) "revtool.cwl#input"))
+    ; :source should also be expanded
+    (is (.startsWith (:source (first (:outputs wf))) "file:" ))
+    (is (.endsWith (:source (first (:outputs wf))) "revsort.cwl#sorted.output" ))
   ))

@@ -10,11 +10,17 @@
     (throw (RuntimeException. (str "Local ids not yet supported: " id)))
     (parse-cwl (java.net.URL. base id))))
 
+(defn- resolve-key [base key wf-part]
+  (if (key wf-part)
+    (assoc wf-part key (str (java.net.URL. base (key wf-part))))
+    wf-part))
+
+
 (defn resolve-ids [base wf-part]
-  (if (:id wf-part)
-    ; replace with absolute id
-    (assoc wf-part :id (str (java.net.URL. base (:id wf-part))))
-  wf-part))
+  (->> wf-part
+    (resolve-key base :id)
+    (resolve-key base :source)))
+
 
 (defn resolve-imports [base wf-part]
     (if (:import wf-part)
