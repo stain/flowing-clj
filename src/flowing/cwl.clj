@@ -40,7 +40,6 @@
       (walk/postwalk (partial resolve-wf url)
         (yaml/parse-string (slurp src)))
       { :src url })))
-  ;; TODO: Something about identifiers?
 
 
 (defn- find-all-nested
