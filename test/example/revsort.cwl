@@ -55,6 +55,7 @@ steps:
     outputs:
       - { id: "#rev.output" }
     run: { import: revtool.cwl }
+    id: "#rev"
 
   - inputs:
       - { id: "#sorted.input", source: "#rev.output" }
@@ -62,3 +63,4 @@ steps:
     outputs:
       - { id: "#sorted.output" }
     run: { import: sorttool.cwl }
+    id: "#sorted"

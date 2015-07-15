@@ -1,8 +1,8 @@
 (ns flowing.cwl-test
   (:require [clojure.test :refer :all]
+            [flowing.cwl :refer :all]
             [flowing.core :refer :all]
             [clojure.pprint :refer [pprint]]
-            [flowing.cwl :refer :all]
             [clojure.java.io :as io ]
             ))
 
@@ -41,3 +41,12 @@
       (is (.endsWith (:id (first (:outputs wf))) "revsort.cwl#output"))
       (is (.endsWith (:id (first (get-in (first (:steps wf)) [:run :inputs]))) "revtool.cwl#input"))
     ))
+
+(testing "compile-cwl revsort.cwl"
+  (let [cwl (parse-cwl (io/resource "example/revsort.cwl"))
+        wf (compile-cwl cwl)
+        steps (workflow-steps wf)]
+        (pprint wf)
+        ;; TODO: Actually test and run wf
+
+  ))

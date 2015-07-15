@@ -1,7 +1,10 @@
 (ns flowing.cwl
   (:require [clj-yaml.core :as yaml]
             [clojure.walk :as walk]
-            [clojure.java.io :as io ]))
+            [clojure.java.io :as io]
+            [flowing.core :as flowing]
+
+            ))
 
 (def parse-cwl)
 
@@ -40,6 +43,31 @@
       (walk/postwalk (partial resolve-wf url)
         (yaml/parse-string (slurp src)))
       { :src url })))
+
+(defn uuid []
+  (str (java.util.UUID/randomUUID)))
+
+
+(defn cwl-input->args [step]
+  (vector (map #(symbol (:id %)) (:inputs step))))
+
+(defn cwl-step->flowing [step#]
+
+  (let [name (get step# :id (uuid))
+        args# (cwl-input->args step#)]
+        ; FIXME: Actually use args# as args below
+  (flowing/step name [&args]
+    ;; TODO: Run actual docker command
+      (println "docker run something something" args#)
+  )))
+
+(defn compile-cwl [cwl]
+
+  (let [wf (flowing/steps->map (map cwl-step->flowing (:steps cwl)))]
+  ; ..
+    wf
+  ))
+
 
 
 (defn- find-all-nested

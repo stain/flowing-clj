@@ -54,8 +54,12 @@
 (defn workflow-steps [wf]
   (filter ::output (vals wf)))
 
-(defn- step-names [steps]
+(defn step-names [steps]
   (map keyword (map ::name steps)))
+
+(defn steps->map [steps]
+  (zipmap (step-names steps) steps))
+
 
 (defn wait-for-workflow [workflow]
   (let [steps (workflow-steps workflow)]
