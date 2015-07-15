@@ -5,7 +5,7 @@
 
 (def parse-cwl)
 
-(defn import-wf [base id]
+(defn- import-wf [base id]
   (if (.contains id  "#")
     (throw (RuntimeException. (str "Local ids not yet supported: " id)))
     (parse-cwl (java.net.URL. base id))))
@@ -16,19 +16,19 @@
     wf-part))
 
 
-(defn resolve-ids [base wf-part]
+(defn- resolve-ids [base wf-part]
   (->> wf-part
     (resolve-key base :id)
     (resolve-key base :source)))
 
 
-(defn resolve-imports [base wf-part]
+(defn- resolve-imports [base wf-part]
     (if (:import wf-part)
       ;'(import-wf base ~(:import wf-part))
       (import-wf base (:import wf-part))
       wf-part))
 
-(defn resolve-wf [base wf-part]
+(defn- resolve-wf [base wf-part]
   (->> wf-part
       (resolve-imports base)
       (resolve-ids base)
@@ -43,7 +43,7 @@
   ;; TODO: Something about identifiers?
 
 
-(defn find-all-nested
+(defn- find-all-nested
 ;; by xsc (Yannick Scherer)
 ;; http://stackoverflow.com/a/28097404
   [m k]
